@@ -1,4 +1,4 @@
-# 📦 Mini Cloud Storage Backend
+# 📦 API Documentation
 
 A simple backend system that simulates a cloud file storage service with upload, delete, file listing, storage summary and deduplication logic.
 
