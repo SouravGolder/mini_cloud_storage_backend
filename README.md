@@ -44,30 +44,29 @@ USE mini_cloud;
 ```
 #### Create Tables:
 ```mySQL
--- Users
+-- Users Table
 CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
--- Files (physical storage)
+-- Files Table (physical storage)
 CREATE TABLE files (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    file_hash VARCHAR(64) NOT NULL UNIQUE,
-    file_size BIGINT NOT NULL
+    id SERIAL PRIMARY KEY,
+    file_size BIGINT NOT NULL,
+    file_hash VARCHAR(64) NOT NULL UNIQUE
 );
 
--- UserFiles (ownership)
+-- UserFiles Table (ownership)
 CREATE TABLE user_files (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    file_id INT NOT NULL,
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id) ON DELETE CASCADE,
+    file_id INT REFERENCES files(id) ON DELETE CASCADE,
     file_name VARCHAR(255) NOT NULL,
-    upload_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE(user_id, file_name),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (file_id) REFERENCES files(id) ON DELETE CASCADE
+    upload_time TIMESTAMP DEFAULT NOW(),
+    UNIQUE(user_id, file_name)
 );
+
 ```
 ### 🚀 5. How to Run
 ```mySQL
