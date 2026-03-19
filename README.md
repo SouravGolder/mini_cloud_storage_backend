@@ -165,3 +165,51 @@ To handle simultaneous uploads:
 ---
 
 ## 🚀 Scaling to 100K Users
+
+When the number of users grows to **100K or more**, the system can experience high load and slower performance. To ensure scalability and efficiency, the following strategies can be applied:
+
+---
+
+### 📌 1. Database Optimization
+
+Improve database performance by:
+
+- Adding indexes on frequently queried fields:
+  - `user_id`
+  - `file_id`
+  - `file_hash`
+- Using **read replicas** to handle heavy read operations and reduce pressure on the main database
+
+
+### 🧠 2. Caching
+
+Use **Redis** to cache frequently accessed data such as:
+
+- Storage summary
+- File lists
+
+**Benefits:**
+- Reduces database queries
+- Improves response time
+- Enhances overall performance
+
+
+### 📦 3. Horizontal Scaling using Multiple Servers
+
+Handle increased traffic by:
+
+- Running multiple backend server instances
+- Using a load balancer (e.g., **Nginx**) to distribute requests evenly across servers
+
+
+### 📁 4. Storage Optimization
+
+- Store actual file content in cloud storage (e.g., **AWS S3**)
+- Keep only file metadata in the database
+
+**Benefits:**
+- Improves scalability
+- Reduces database storage load
+- Ensures better file management
+
+---
